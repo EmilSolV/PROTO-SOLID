@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public class Shooter : MonoBehaviour, IWeapon
 {
     public Transform firePoint;
     public GameObject projectilePrefab;

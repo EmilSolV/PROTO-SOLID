@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour, IShootable
 {
     public float speed = 10f;
-    public AudioClip hitSound; // sonido de impacto
+    public AudioClip hitSound;
 
     private AudioSource audioSource;
 
@@ -23,12 +23,15 @@ public class Projectile : MonoBehaviour, IShootable
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Reproducir sonido de impacto
         if (hitSound != null)
         {
-            audioSource.PlayOneShot(hitSound);
+            GameObject temp = new GameObject("TempAudio");
+            temp.transform.position = transform.position;
+            AudioSource audio = temp.AddComponent<AudioSource>();
+            audio.PlayOneShot(hitSound);
+            Destroy(temp, hitSound.length);
         }
 
-        Destroy(gameObject, 0.1f); // destruimos con peque�o delay para que se escuche el sonido
+        Destroy(gameObject);
     }
 }
